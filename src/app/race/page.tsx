@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { WebcamFeed } from "@/components/WebcamFeed";
@@ -22,6 +22,14 @@ import type { RaceFinishPayload } from "@shared/protocol";
 const FINISH_LINE_M = 100;
 
 export default function RacePage() {
+  return (
+    <Suspense>
+      <RacePageInner />
+    </Suspense>
+  );
+}
+
+function RacePageInner() {
   const { videoRef, status, error } = useWebcam();
   const { landmarks, detectorStatus } = usePoseDetector(videoRef);
   const { onLandmarks, swimSpeed } = useSwimTracker();
