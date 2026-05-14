@@ -67,7 +67,7 @@ export function useMultiplayerRace(swimSpeed: number): UseMultiplayerRaceResult 
   };
 
   useEffect(() => {
-    const socket = io(SERVER_URL, { autoConnect: true });
+    const socket = io(SERVER_URL, { transports: ["websocket"], autoConnect: true });
     socketRef.current = socket;
 
     socket.on("connect", () => setSocketConnected(true));
