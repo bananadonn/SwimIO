@@ -1,17 +1,80 @@
 @import "tailwindcss";
 
-body {
-  background: #0a0a0a;
-  color: #ededed;
-  font-family: Arial, Helvetica, sans-serif;
+@theme {
+  /* Color tokens */
+  --color-base:      #0A0E14;
+  --color-surface:   #141A22;
+  --color-surface-2: #1C2433;
+  --color-surface-3: #232E3F;
+  --color-text:      #F5F7FA;
+  --color-muted:     #8B95A5;
+  --color-pool:      #00B4F0;
+  --color-pool-dim:  #0078B8;
+  --color-coral:     #FF4D4D;
+  --color-energy:    #FFD600;
+
+  /* Font tokens */
+  --font-display: var(--font-anton);
 }
 
+body {
+  background-color: #0A0E14;
+  color: #F5F7FA;
+}
+
+/* Subtle pool-light radial from top — 3% opacity, barely visible */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse 90% 45% at 50% -5%, rgba(0, 180, 240, 0.05) 0%, transparent 70%);
+}
+
+/* Film grain */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px;
+}
+
+/* ── Keyframes ──────────────────────────────────────────────────────────────── */
+
+/* Used by generic pop-in elements */
 @keyframes ping-once {
   0%   { transform: scale(0.7); opacity: 0; }
   40%  { transform: scale(1.1); opacity: 1; }
   100% { transform: scale(1);   opacity: 1; }
 }
 
-.animate-ping-once {
-  animation: ping-once 0.35s ease-out forwards;
+/* Countdown digits 3 / 2 / 1 — slams down from above */
+@keyframes slam {
+  0%   { transform: scale(1.8) translateY(-12px); opacity: 0; }
+  55%  { transform: scale(0.93) translateY(0);    opacity: 1; }
+  100% { transform: scale(1)   translateY(0);     opacity: 1; }
 }
+
+/* GO! — bursts outward from small */
+@keyframes go-slam {
+  0%   { transform: scale(0.4);  opacity: 0; letter-spacing: 0.6em; }
+  55%  { transform: scale(1.06); opacity: 1; letter-spacing: -0.02em; }
+  100% { transform: scale(1);    opacity: 1; letter-spacing: -0.02em; }
+}
+
+/* Victory screen entrance */
+@keyframes victory-in {
+  0%   { transform: scale(0.85) translateY(20px); opacity: 0; }
+  100% { transform: scale(1)    translateY(0);    opacity: 1; }
+}
+
+.animate-ping-once  { animation: ping-once   0.35s ease-out                         forwards; }
+.animate-slam       { animation: slam        0.18s cubic-bezier(0.22, 1, 0.36, 1)   forwards; }
+.animate-go-slam    { animation: go-slam     0.22s cubic-bezier(0.22, 1, 0.36, 1)   forwards; }
+.animate-victory-in { animation: victory-in  0.28s cubic-bezier(0.22, 1, 0.36, 1)   forwards; }

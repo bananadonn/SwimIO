@@ -10,27 +10,42 @@ interface Props {
 export function WinScreen({ result, onPlayAgain }: Props) {
   const { finishTimeMs, finalDistance } = result;
 
-  const headline = finishTimeMs !== null
-    ? `You finished in ${(finishTimeMs / 1000).toFixed(1)}s!`
-    : `Time's up — you made it ${finalDistance}m!`;
-
-  const sub = finishTimeMs !== null
-    ? "You hit the finish line."
-    : finalDistance >= 80
-    ? "So close!"
-    : finalDistance >= 50
-    ? "Halfway there!"
-    : "Keep training!";
+  const sub =
+    finishTimeMs !== null ? "You hit the finish line." :
+    finalDistance >= 80   ? "So close!" :
+    finalDistance >= 50   ? "Halfway there!" :
+    "Keep training!";
 
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 bg-black/70 z-20">
-      <p className="text-3xl font-black text-white text-center px-4">{headline}</p>
-      <p className="text-neutral-400 text-sm">{sub}</p>
+    <div className="absolute inset-0 flex flex-col items-center justify-center bg-base/90 z-20 gap-2 animate-victory-in">
+
+      {finishTimeMs !== null ? (
+        <>
+          <span className="text-[10px] tracking-[0.4em] font-semibold text-energy uppercase mb-1">
+            Finish
+          </span>
+          <div className="font-display leading-none text-text text-[clamp(5rem,18vw,9rem)] tabular-nums">
+            {(finishTimeMs / 1000).toFixed(1)}<span className="text-[40%] text-muted">s</span>
+          </div>
+        </>
+      ) : (
+        <>
+          <span className="text-[10px] tracking-[0.4em] font-semibold text-muted uppercase mb-1">
+            Time up
+          </span>
+          <div className="font-display leading-none text-text text-[clamp(5rem,18vw,9rem)] tabular-nums">
+            {finalDistance}<span className="text-[40%] text-muted">m</span>
+          </div>
+        </>
+      )}
+
+      <p className="text-muted text-sm mt-1 mb-6">{sub}</p>
+
       <button
         onClick={onPlayAgain}
-        className="rounded-xl bg-blue-600 px-8 py-3 text-base font-semibold hover:bg-blue-500 transition-colors"
+        className="px-8 py-3 rounded-xl bg-pool hover:bg-[#1ABEF5] text-base font-display text-lg tracking-wide transition-colors duration-150"
       >
-        Play Again
+        PLAY AGAIN
       </button>
     </div>
   );

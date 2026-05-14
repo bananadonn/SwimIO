@@ -11,11 +11,13 @@ export function Countdown({ countdown }: Props) {
   const isGo = countdown === 0;
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center bg-black/40 z-10">
+    <div className="absolute inset-0 flex items-center justify-center bg-base/60 z-10">
       <span
         key={label}
-        className={`text-8xl font-black tracking-tight select-none animate-ping-once ${
-          isGo ? "text-green-400" : "text-white"
+        className={`font-display select-none leading-none tracking-tight ${
+          isGo
+            ? "text-[clamp(6rem,20vw,11rem)] text-energy animate-go-slam"
+            : "text-[clamp(7rem,22vw,13rem)] text-text animate-slam"
         }`}
       >
         {label}

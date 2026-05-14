@@ -15,14 +15,13 @@ export function RaceTimer({ elapsedMsRef }: Props) {
 
     function update() {
       const remaining = Math.max(0, RACE_CONFIG.RACE_DURATION_MS - elapsedMsRef.current);
-      const secs = (remaining / 1000).toFixed(1);
+      const secs = Math.ceil(remaining / 1000);
 
       if (spanRef.current) {
         spanRef.current.textContent = `${secs}s`;
-        // Red when under 10s
         spanRef.current.className = remaining <= 10_000
-          ? "tabular-nums font-mono text-red-400"
-          : "tabular-nums font-mono text-neutral-400";
+          ? "font-mono font-bold tabular-nums text-coral text-xl"
+          : "font-mono font-bold tabular-nums text-text text-xl";
       }
 
       raf = requestAnimationFrame(update);
@@ -32,5 +31,5 @@ export function RaceTimer({ elapsedMsRef }: Props) {
     return () => cancelAnimationFrame(raf);
   }, [elapsedMsRef]);
 
-  return <span ref={spanRef} className="tabular-nums font-mono text-neutral-400" />;
+  return <span ref={spanRef} className="font-mono font-bold tabular-nums text-text text-xl" />;
 }
