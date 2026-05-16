@@ -46,7 +46,7 @@ function LoginForm() {
       } else {
         const { error: e } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
         if (e) { setError(e.message); return; }
-        router.push("/");
+        window.location.href = "/";
       }
     } finally {
       setLoading(false);
