@@ -116,11 +116,10 @@ function RacePageInner() {
             </div>
 
             {inMatch && (
-              <div className="flex-1 min-w-0 aspect-video sm:aspect-auto">
+              <div className="flex-1 min-w-0">
                 <RemoteVideo
                   track={remoteVideoTrack}
                   name={opponentName ?? "Opponent"}
-                  className="w-full h-full"
                 />
               </div>
             )}

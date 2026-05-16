@@ -20,7 +20,7 @@ export function RemoteVideo({ track, name, className }: RemoteVideoProps) {
   }, [track]);
 
   return (
-    <div className={`relative bg-surface rounded-xl overflow-hidden ${className ?? ""}`}>
+    <div className={`relative w-full aspect-video bg-surface rounded-xl overflow-hidden ${className ?? ""}`}>
       <video
         ref={videoRef}
         autoPlay
